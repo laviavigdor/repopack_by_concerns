@@ -9,7 +9,31 @@
 Repopack is a powerful tool that packs your entire repository into a single, AI-friendly file.  
 Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like Claude, ChatGPT, and Gemini.
 
+## NextJS 13+ Support
 
+Repopack now includes special support for NextJS 13+ projects. This feature allows you to generate separate repopacks for different concerns in your NextJS project, such as API routes, pages, and layouts.
+
+To use this feature, run:
+
+```bash
+repopack nextjs
+```
+
+This command will generate the following repopacks in the `./repopacks` directory:
+
+- `repopack-common.txt`: Common files shared across all NextJS 13+ concerns
+- `repopack-api-routes.txt`: NextJS 13+ API routes and common files
+- `repopack-pages.txt`: NextJS 13+ pages and common files
+- `repopack-layouts.txt`: NextJS 13+ layouts and common files
+- `repopack-all.txt`: All NextJS 13+ project files
+
+You can specify a different root directory or output directory:
+
+```bash
+repopack nextjs -d /path/to/nextjs/project -o /path/to/output
+```
+
+This feature helps in organizing and analyzing different aspects of your NextJS project separately, while still maintaining the context of common files.
 
 ## 🌟 Features
 

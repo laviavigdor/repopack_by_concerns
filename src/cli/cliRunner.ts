@@ -9,6 +9,7 @@ import { runDefaultAction } from './actions/defaultActionRunner.js';
 import { runInitAction } from './actions/initActionRunner.js';
 import { runRemoteAction } from './actions/remoteActionRunner.js';
 import { runVersionAction } from './actions/versionActionRunner.js';
+import { generateNextJSRepopacks } from '../nextjs/nextjsSupport.js';
 
 export interface CliOptions extends OptionValues {
   version?: boolean;
@@ -46,6 +47,22 @@ export async function run() {
       .option('--global', 'use global configuration (only applicable with --init)')
       .option('--remote <url>', 'process a remote Git repository')
       .action((directory = '.', options: CliOptions = {}) => executeAction(directory, process.cwd(), options));
+
+    program
+      .command('nextjs')
+      .description('Generate repopacks for a NextJS 13+ project')
+      .option('-d, --dir <directory>', 'Root directory of the NextJS project', '.')
+      .option('-o, --output <directory>', 'Output directory for repopacks', './repopacks')
+      .action(async (options) => {
+        try {
+          await generateNextJSRepopacks({
+            rootDir: options.dir,
+            outputDir: options.output,
+          });
+        } catch (error) {
+          handleError(error);
+        }
+      });
 
     await program.parseAsync(process.argv);
   } catch (error) {
